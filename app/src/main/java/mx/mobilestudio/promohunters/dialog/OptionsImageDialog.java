@@ -186,6 +186,8 @@ public class OptionsImageDialog extends DialogFragment {
         File photoFile = null;
         try {
             photoFile = createImageFile();
+            mCurrentPhotoPath = photoFile.getAbsolutePath();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

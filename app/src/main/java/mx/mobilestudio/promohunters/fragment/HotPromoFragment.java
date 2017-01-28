@@ -18,8 +18,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.Executor;
 
@@ -34,7 +37,7 @@ import mx.mobilestudio.promohunters.model.User;
  * Use the {@link HotPromoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HotPromoFragment extends Fragment {
+public class HotPromoFragment extends Fragment implements ValueEventListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -49,6 +52,8 @@ public class HotPromoFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private RecyclerView myHotPromoRecyclerView;
 
     public HotPromoFragment() {
         // Required empty public constructor
@@ -90,6 +95,12 @@ public class HotPromoFragment extends Fragment {
         firebaseAuth =  FirebaseAuth.getInstance();// Inicializamos Firebase Auth
         firebaseDatabase = FirebaseDatabase.getInstance(); //Obtenemos la referencia a la DB
         generalDatabaseReference = firebaseDatabase.getReference();  //Obtenemos una referencia general
+
+
+        generalDatabaseReference.child("promotion").addValueEventListener(this);
+
+
+
 
         //Validamos si el usuario existe
         if (firebaseAuth.getCurrentUser() == null) {
@@ -135,6 +146,18 @@ public class HotPromoFragment extends Fragment {
     }
 
 
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+        Toast.makeText(getActivity(),"Hay mas información disponible ", Toast.LENGTH_LONG).show();
+
 
 
     }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+
+    }
+}

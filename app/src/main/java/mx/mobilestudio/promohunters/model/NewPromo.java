@@ -12,6 +12,9 @@ public class NewPromo {
     private String link;
 
 
+
+    private String base64Image;
+
     private String tienda;
 
     public NewPromo() {
@@ -20,13 +23,16 @@ public class NewPromo {
     }
 
 
-    public NewPromo(String categoria, String descripcion, String link, float precio, String title,String tienda) {
+    public NewPromo(String categoria, String descripcion, String link, float precio, String title,
+                    String tienda,
+                    String base64Image) {
         this.categoria = categoria;
         this.descripcion = descripcion;
         this.link = link;
         this.precio = precio;
         this.title = title;
         this.tienda = tienda;
+        this.base64Image = base64Image;
     }
 
     public String getTitle() {
@@ -77,5 +83,11 @@ public class NewPromo {
         this.tienda = tienda;
     }
 
+    public String getBase64Image() {
+        return base64Image;
+    }
 
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
+    }
 }

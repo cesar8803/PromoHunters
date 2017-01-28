@@ -2,10 +2,13 @@ package mx.mobilestudio.promohunters;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import mx.mobilestudio.promohunters.dialog.OptionsImageDialog;
@@ -35,8 +39,11 @@ public class CreatePromoActivity extends AppCompatActivity implements View.OnCli
 
     private Button boton_send;
     private ImageButton image_promo_button;
+    private File imageToUpload;
+
 
     private OptionsImageDialog   dialog;
+    private  Bitmap myBitMap;
 
 
     private FirebaseAuth firebaseAuth;//Crear usuarios y Autentificarnos
@@ -85,7 +92,7 @@ public class CreatePromoActivity extends AppCompatActivity implements View.OnCli
 
         switch (v.getId()){
             case R.id.button_enviar:
-                createNewPromo();
+                createNewPromo(myBitMap);
                 break;
             case R.id.imageButton:
                 showOptionsDialog();
@@ -94,15 +101,31 @@ public class CreatePromoActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    public void createNewPromo(){
+    public void createNewPromo(Bitmap bitmap){
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+
+        String imageEncoded = Base64.encodeToString(stream.toByteArray(), Base64.DEFAULT);
+
+
+
         NewPromo newPromo = new NewPromo(categoria.getSelectedItem().toString(),
                 descripcion.getText().toString(),
                 link.getText().toString(),
                 new Float(precio.getText().toString()),
                 title.getText().toString(),
-                tienda.getSelectedItem().toString());
+                tienda.getSelectedItem().toString(),imageEncoded);
+
 
         generalDatabaseReference.child("promotion").child( title.getText().toString()).setValue(newPromo);
+
+
+        Toast.makeText(this, "Se ha creado la promoción de forma exitosa.", Toast.LENGTH_SHORT).show();
+        
+        //Cerramos el activity
+        finish();
 
     }
 
@@ -124,6 +147,7 @@ public class CreatePromoActivity extends AppCompatActivity implements View.OnCli
         Toast.makeText(this,"ola!!! regresamos de un viaje a la camara..",Toast.LENGTH_LONG).show();
 
             galleryAddPic();
+            setPic();
     }
 
 
@@ -131,10 +155,30 @@ public class CreatePromoActivity extends AppCompatActivity implements View.OnCli
 
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 
-        File file = new File(mCurrentPhotoPath);
+        File file = new File(dialog.mCurrentPhotoPath);
         Uri contentUri = Uri.fromFile(file);
         mediaScanIntent.setData(contentUri);
         sendBroadcast(mediaScanIntent);
+
+    }
+
+
+    private void setPic(){
+
+
+
+        imageToUpload = new File(dialog.mCurrentPhotoPath);
+
+        if(imageToUpload.exists()){
+
+             myBitMap = BitmapFactory.decodeFile(imageToUpload.getAbsolutePath());
+
+            image_promo_button.setImageBitmap(myBitMap);
+
+
+
+
+        }
 
     }
 
