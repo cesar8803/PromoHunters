@@ -1,6 +1,7 @@
 package mx.mobilestudio.promohunters;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -108,6 +110,13 @@ public class CreatePromoActivity extends AppCompatActivity implements View.OnCli
         dialog.show(manager,"");
 
 
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(this,"ola!!! regresamos de un viaje a la camara..",Toast.LENGTH_LONG).show();
     }
 
 
