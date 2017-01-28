@@ -2,6 +2,7 @@ package mx.mobilestudio.promohunters;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.File;
 
 import mx.mobilestudio.promohunters.dialog.OptionsImageDialog;
 import mx.mobilestudio.promohunters.model.NewPromo;
@@ -33,6 +36,7 @@ public class CreatePromoActivity extends AppCompatActivity implements View.OnCli
     private Button boton_send;
     private ImageButton image_promo_button;
 
+    private OptionsImageDialog   dialog;
 
 
     private FirebaseAuth firebaseAuth;//Crear usuarios y Autentificarnos
@@ -105,7 +109,8 @@ public class CreatePromoActivity extends AppCompatActivity implements View.OnCli
     private void showOptionsDialog(){
         FragmentManager manager = getSupportFragmentManager();
 
-        OptionsImageDialog   dialog = new OptionsImageDialog();
+
+        dialog = new OptionsImageDialog();
 
         dialog.show(manager,"");
 
@@ -117,8 +122,21 @@ public class CreatePromoActivity extends AppCompatActivity implements View.OnCli
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Toast.makeText(this,"ola!!! regresamos de un viaje a la camara..",Toast.LENGTH_LONG).show();
+
+            galleryAddPic();
     }
 
+
+    private void galleryAddPic(){
+
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+
+        File file = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(file);
+        mediaScanIntent.setData(contentUri);
+        sendBroadcast(mediaScanIntent);
+
+    }
 
 
 }
