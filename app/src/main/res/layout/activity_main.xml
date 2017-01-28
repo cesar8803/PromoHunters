@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mx.mobilestudio.promohunters.MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--  Empieza header del App -->
+
+        <LinearLayout
+            android:id="@+id/container_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+          <!--  incluir nuestro toolbar -->
+                <include android:id="@+id/toolbar"
+                         layout="@layout/toolbar" />
+            <!--  termina nuestro toolbar -->
+
+        </LinearLayout>
+        <!--  Termina header del App -->
+
+        <!--  Empieza contenido principal del App -->
+        <FrameLayout
+            android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+        <!--  Termina contenido principal del App -->
+    </LinearLayout>
+
+
+    <!--  Empieza el contenido de mi navigation drawer -->
+    <ListView
+        android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/holo_blue_light"
+        android:dividerHeight="1dp">
+    </ListView>
+
+    <!--  Termina el contenido de mi navigation drawer -->
+</android.support.v4.widget.DrawerLayout>

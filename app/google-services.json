@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "226728840803",
+    "firebase_url": "https://promohunters-ec46e.firebaseio.com",
+    "project_id": "promohunters-ec46e",
+    "storage_bucket": "promohunters-ec46e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226728840803:android:bc2513f3b0dd38d5",
+        "android_client_info": {
+          "package_name": "mx.mobilestudio.promohunters"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226728840803-lvrc386bdpq6bmcgf74hjta415pi0aao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1iejjxjcjZte9uKv5h5lw07FkxWqXeX0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
